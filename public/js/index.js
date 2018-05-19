@@ -8,17 +8,19 @@ socket.on('disconnect', function() {
     console.log('Disconnected from server');
 });
 
-socket.on('newMessage', function({from, text}) {
+socket.on('newMessage', function({ from, text, createdAt }) {
+    var formattedTime = moment(createdAt).format('h:mm a');
     var li = jQuery('<li></li>');
-    li.text(`${from}: ${text}`);
+    li.text(`${from} ${formattedTime}: ${text}`);
     jQuery('#messages').append(li);
 });
 
-socket.on('newLocationMessage', function({ from, url }) {
+socket.on('newLocationMessage', function({ from, url, createdAt }) {
     var li = jQuery('<li></li>');
     var a = jQuery('<a target="_blank">My current location </a>');
-    
-    li.text(`${from}: `);
+    var formattedTime = moment(createdAt).format('h:mm a');
+
+    li.text(`${from} ${formattedTime}: `);
     a.attr('href', url);
     li.append(a);
     jQuery('#messages').append(li);
