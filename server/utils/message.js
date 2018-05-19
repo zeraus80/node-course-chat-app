@@ -3,4 +3,10 @@ var generateMessage = (from, text) => {
     return { from, text, createdAt };
 };
 
-module.exports = { generateMessage };
+var generateLocationMessage = (from, latitude, longitude) => {
+    const createdAt = new Date().getTime();
+    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    return { from, url, createdAt };
+};
+
+module.exports = { generateMessage, generateLocationMessage };
